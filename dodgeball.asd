@@ -19,6 +19,7 @@
 (asdf:defsystem "dodgeball/tests"
   :licence "Public Domain"
   :depends-on (:dodgeball
+	       :alexandria
 	       :check-it
 	       :fiasco)
   :serial t

@@ -1,10 +1,8 @@
 (fiasco:define-test-package :dodgeball-tests
-  (:use :dodgeball :check-it))
+  (:use :dodgeball :check-it :alexandria)
+  (:local-nicknames (:a :alexandria)))
 
 (in-package :dodgeball-tests)
-
-(defun range (end)
-  (loop :for i :below end :collect i))
 
 (defun test-gen (max-size)
   (generator
@@ -23,7 +21,7 @@
       result))
 
 (defun test->graph (test-data)
-  (let ((players (reverse (range (length test-data)))))
+  (let ((players (reverse (a:iota (length test-data)))))
     (graph players (pairlis players test-data) nil)))
 
 (defparameter *input-1* '((0 . (3))
@@ -64,7 +62,7 @@
             (team-b (cdr (assoc :B result)))
             (all-players (mapcar #'car graph)))
         (and (all-players-present? all-players team-a team-b)
-             (every #'identity (mapcar (lambda (team) (all-players-compatible? team graph)) (list team-a team-b)))))))
+             (every #'identity (mapcar (a:rcurry #'all-players-compatible? graph) (list team-a team-b)))))))
 
 (deftest is-result-valid-test ()
   (is (is-result-valid? nil *input-1*))
