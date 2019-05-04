@@ -30,4 +30,4 @@
 
 ### Test
 
-    sbcl --non-interactive --eval "(ql:quickload :fiasco)" --load ./dodgeball.lisp --eval "(in-package :dodgeball-tests)" --eval "(run-package-tests)"
+    sbcl --non-interactive --eval "(ql:quickload :dodgeball)" --eval "(asdf:test-system :dodgeball)"

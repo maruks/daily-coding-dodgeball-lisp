@@ -1,8 +1,6 @@
 (defpackage :dodgeball
-  (:use :cl :fiasco)
+  (:use :cl)
   (:export :split))
-
-; (ql:quickload :fiasco)
 
 (in-package :dodgeball)
 
@@ -34,38 +32,3 @@
 
 (defun split (graph)
   (process (acons (caar graph) (car *teams*) nil) nil graph))
-
-;; ------------------------------------------------------------------
-
-(fiasco:define-test-package :dodgeball-tests
-  (:use :dodgeball))
-
-(in-package :dodgeball-tests)
-
-(defparameter *input-1* '((0 . (3))
-			  (1 . (2))
-			  (2 . (1 4))
-			  (3 . (0 4 5))
-			  (4 . (2 3))
-			  (5 . (3))))
-
-(defparameter *input-2* '((0 . (3))
-			  (1 . (2))
-			  (2 . (1 3 4))
-			  (3 . (0 2 4 5))
-			  (4 . (2 3))
-			  (5 . (3))))
-
-(defparameter *input-3* '((0 . (3))
-			  (1 . (2))
-			  (2 . (1 4))
-			  (3 . (0 4 5))
-			  (4 . (2 3))
-			  (5 . (3))
-			  (6 . ())
-			  (7 . ())))
-
-(deftest split-test ()
-  (is (equal '((:A . (0 1 4 5)) (:B . (2 3)))  (split *input-1*)))
-  (is (null (split *input-2*)))
-  (is (equal '((:A . (0 1 4 5)) (:B . (2 3 6 7)))  (split *input-3*))))
