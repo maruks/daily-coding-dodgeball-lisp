@@ -30,4 +30,4 @@
 
 ### Test
 
-    sbcl --non-interactive --eval "(ql:quickload :dodgeball)" --eval "(asdf:test-system :dodgeball)"
+    sbcl --non-interactive --eval "(ql:quickload :dodgeball/tests)" --eval "(asdf:test-system :dodgeball)"
